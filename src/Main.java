@@ -5,20 +5,9 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
         MyHashMap myHashMap = new MyHashMap();
-        myHashMap.put("key1", "value1");
-        myHashMap.put("key1", "value11");
-        myHashMap.put("key2", "value2");
-        myHashMap.put("key3", "value3");
-        myHashMap.put("key4", "value2");
-        myHashMap.put("key5", "value2");
-        myHashMap.put("key6", "value2");
-        myHashMap.put("key7", "value2");
-        myHashMap.put("key8", "value2");
-        myHashMap.put("key9", "value2");
-        myHashMap.put("key10", "value2");
-        myHashMap.put("key11", "value2");
-        myHashMap.put("key12", "value2");
-        myHashMap.put("key13", "value2");
+        for (int i = 1; i <= 500; i++) {
+            myHashMap.put(i % 10 , i);
+        }
         System.out.println(myHashMap.toString());
         System.out.println(myHashMap.get("key1"));
         System.out.println(myHashMap.remove("key13"));
