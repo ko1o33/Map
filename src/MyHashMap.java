@@ -2,6 +2,18 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class MyHashMap<K,V> {
+
+    public class Bucket<K,V> {
+        final K key;
+        V value;
+        Bucket<K,V> next;
+
+        public Bucket(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
     private int DEFAULT_CAPACITY = 16;
 
     private  Bucket<K,V>[] array;
@@ -21,7 +33,7 @@ public class MyHashMap<K,V> {
             var next = array[index];
             int sizeBusket=1;
             while(next != null) {
-                if(next.key.equals(key)) {
+                if(Objects.equals(next.key, key)){
                     next.value = value;
                     keyFound = true;
                     break;
@@ -44,7 +56,7 @@ public class MyHashMap<K,V> {
         int index = hash(key);
         var bucket = array[index];
         while(bucket != null) {
-            if(bucket.key.equals(key)) {
+            if(Objects.equals(bucket.key, key)) {
                 return bucket.value;
             }
             bucket = bucket.next;
@@ -77,9 +89,9 @@ public class MyHashMap<K,V> {
         var bucket = array[index];
         Bucket<K,V> lastBucket = null;
         while(bucket != null) {
-            if(bucket.key.equals(key)) {
+            if(Objects.equals(bucket.key, key)) {
                 if(bucket.next == null) {
-                    array[index] = null;
+                    array[index] = bucket.next;
                 }else {
                     lastBucket.next = bucket.next;
                 }
@@ -92,6 +104,9 @@ public class MyHashMap<K,V> {
     }
 
     private  int hash(K key) {
+        if (key == null) {
+            return 0;
+        }
         return Math.abs(key.hashCode()) % DEFAULT_CAPACITY;
     }
 
